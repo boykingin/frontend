@@ -1,7 +1,7 @@
 import { Masonry } from "@mui/lab";
 import { Card } from "flowbite-react";
-import SyntaxHighlighter from "react-syntax-highlighter";
-import { a11yDark } from "react-syntax-highlighter/dist/cjs/styles/hljs";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { nightOwl } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { IconButton } from "@mui/material";
@@ -37,7 +37,7 @@ function Masonary({ data }: { data: item[] }) {
   return (
     <div className="w-full">
       <AnimatePresence>
-        <Masonry columns={3} spacing={2}>
+        <Masonry columns={3} spacing={2} defaultHeight={450}>
           {!exiting ? (
             data.map((item) => (
               <motion.div
@@ -61,7 +61,7 @@ function Masonary({ data }: { data: item[] }) {
                       <MdDeleteForever color="red" />
                     </IconButton>
                   </h5>
-                  <SyntaxHighlighter language={item.language} style={a11yDark}>
+                  <SyntaxHighlighter language={item.language} style={nightOwl}>
                     {item.code}
                   </SyntaxHighlighter>
                   <p className="font-normal text-gray-700 dark:text-gray-400">

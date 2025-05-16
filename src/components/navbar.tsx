@@ -9,11 +9,18 @@ function NavbarComp() {
   const [term, setTerm] = useState("");
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setTerm(value);
-    navigate({
-      to: "/",
-      search: { term: e.target.value },
-    });
+    if (value !== "") {
+      setTerm(value);
+      navigate({
+        to: "/",
+        search: { term: e.target.value },
+      });
+    } else {
+      setTerm(value);
+      navigate({
+        to: "/",
+      });
+    }
   };
 
   return (

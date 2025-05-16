@@ -7,13 +7,8 @@ import { z } from "zod";
 import "animate.css/animate.compat.css?url";
 export const Route = createFileRoute("/")({
   component: App,
-  loader: async ({ context }) => {
-    await context.queryClient.fetchQuery(
-      context.trpc.snippet.all.queryOptions()
-    );
-  },
   validateSearch: z.object({
-    term: z.string().default(""),
+    term: z.string().optional(),
   }),
 });
 
@@ -22,7 +17,7 @@ function App() {
   const { data } = useSuspenseQuery(trpc.snippet.all.queryOptions());
   const { term } = useSearch({ from: "/" });
   const filtered =
-    term !== ""
+    term !== undefined
       ? data.filter((i) => {
           return (
             i.title.toLowerCase().includes(term.toLowerCase()) ||
@@ -33,19 +28,7 @@ function App() {
       : data;
   return (
     <div className="w-[100%] h-fit px-[30px] motion-preset-fade">
-      <Suspense
-        fallback={
-          <div className="w-[100%] h-[80%] flex items-center justify-center">
-            <div className="loadingspinner">
-              <div id="square1"></div>
-              <div id="square2"></div>
-              <div id="square3"></div>
-              <div id="square4"></div>
-              <div id="square5"></div>
-            </div>
-          </div>
-        }
-      >
+      <Suspense fallback={<>loading...</>}>
         <Masonary data={filtered} />
       </Suspense>
     </div>
