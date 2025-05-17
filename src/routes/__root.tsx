@@ -63,7 +63,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body className="h-[100%] bg-[#0f1b2c]">
+      <body className="h-[100%]">
         {children}
         <Scripts />
       </body>

@@ -7,6 +7,8 @@ import { useEffect, useRef, useState } from "react";
 import { IconButton } from "@mui/material";
 import { MdDeleteForever } from "react-icons/md";
 import { DeleteModal } from "./modal";
+import { useScreenBreakPoints } from "@/hooks/useScreenBreakPoints";
+import { useIsClient } from "@uidotdev/usehooks";
 
 export type item = {
   id: number;
@@ -22,7 +24,8 @@ function Masonary({ data }: { data: item[] }) {
   const [exiting, setExiting] = useState(false);
   const [id, setId] = useState<number | null>(null);
   const [openModal, setOpenModal] = useState(false);
-
+  const index = useScreenBreakPoints();
+  const isClient = useIsClient();
   useEffect(() => {
     if (JSON.stringify(prev.current) !== JSON.stringify(data)) {
       setExiting(true);
@@ -37,7 +40,7 @@ function Masonary({ data }: { data: item[] }) {
   return (
     <div className="w-full">
       <AnimatePresence>
-        <Masonry columns={3} spacing={2} defaultHeight={450}>
+        <Masonry columns={isClient ? index : 3} spacing={2} defaultHeight={450}>
           {!exiting ? (
             data.map((item) => (
               <motion.div
