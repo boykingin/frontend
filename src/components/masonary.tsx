@@ -40,7 +40,11 @@ function Masonary({ data }: { data: item[] }) {
   return (
     <div className="w-full">
       <AnimatePresence>
-        <Masonry columns={isClient ? index : 3} spacing={2} defaultHeight={450}>
+        <Masonry
+          columns={isClient ? (data.length < 3 ? data.length : index) : 3}
+          spacing={2}
+          defaultHeight={450}
+        >
           {!exiting ? (
             data.map((item) => (
               <motion.div
