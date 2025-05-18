@@ -41,7 +41,15 @@ function Masonary({ data }: { data: item[] }) {
     <div className="w-full">
       <AnimatePresence>
         <Masonry
-          columns={isClient ? (data.length < 3 ? data.length : index) : 3}
+          columns={
+            isClient
+              ? data.length < 3
+                ? data.length < index
+                  ? data.length
+                  : index
+                : index
+              : 3
+          }
           spacing={2}
           defaultHeight={450}
         >
